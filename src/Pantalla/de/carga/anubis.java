@@ -5,18 +5,34 @@
  */
 package Pantalla.de.carga;
 
+import Pantalla.de.login.anubis.login_anubis;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JProgressBar;
+
+
 /**
  *
  * @author braya
  */
 public class anubis extends javax.swing.JFrame {
-
+    static int num_bar = 1;
     /**
      * Creates new form anubis
      */
     public anubis() {
         initComponents();
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);        
+        carga_anubis Carga_anubis = new carga_anubis();
+        Carga_anubis.setBar(jProgressBar1);
+        Carga_anubis.setPorcentaje(porcentaje);
+        Carga_anubis.setAnubis(this);
+        Thread hilo = new Thread(Carga_anubis);
+        hilo.start();
+        
     }
 
     /**
@@ -28,36 +44,41 @@ public class anubis extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        porcentaje = new javax.swing.JLabel();
+        jProgressBar1 = new javax.swing.JProgressBar();
+        Anubis_logo = new javax.swing.JLabel();
         jLabelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setBackground(new java.awt.Color(0, 0, 102));
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Salir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("SISTEMA POS ANUBIS");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, -1, 20));
+
+        porcentaje.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        porcentaje.setForeground(new java.awt.Color(255, 255, 255));
+        porcentaje.setText("100%");
+        getContentPane().add(porcentaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 280, 60, -1));
+
+        jProgressBar1.setForeground(new java.awt.Color(102, 255, 0));
+        jProgressBar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(jProgressBar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 340, 20));
+
+        Anubis_logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla/de/carga/img/Anubis.png"))); // NOI18N
+        getContentPane().add(Anubis_logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, -1, -1));
 
         jLabelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla/de/carga/img/7jQpLf.jpg"))); // NOI18N
-        getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 361, 448));
+        getContentPane().add(jLabelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 370));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+    
     /**
-     * @param args the command line arguments
+     * @param args the command line argumets
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -90,9 +111,81 @@ public class anubis extends javax.swing.JFrame {
             }
         });
     }
+    
+    class carga_anubis implements Runnable{
+        private JProgressBar bar;
+        private JLabel porcentaje;
+        private JFrame anubis;
+        @Override
+        public void run() {
+            for (int i=1; i<=100; i++){
+                try{
+                    Thread.sleep(100);
+                }catch (InterruptedException ex){
+                    Logger.getLogger(carga_anubis.class.getName()).log(Level.SEVERE,null,ex);
+                }
+                this.getBar().setValue(i);
+                if(this.getBar().getValue() == 100){
+                    this.getAnubis().setVisible(false);
+                    Pantalla.de.login.anubis.login_anubis Login_anubis = new login_anubis();
+                    Login_anubis.setVisible(true);
+                }
+                this.getPorcentaje().setText(Integer.toString(i)+"%");
+                num_bar++;
+            }
+        }
+        /**
+         * @return the bar
+         */
+        public JProgressBar getBar() {
+            return bar;
+        }
+
+        /**
+         * @param bar the bar to set
+         */
+        public void setBar(JProgressBar bar) {
+            this.bar = bar;
+        }
+
+        /**
+         * @return the porcentaje
+         */
+        public JLabel getPorcentaje() {
+            return porcentaje;
+        }
+
+        /**
+         * @param porcentaje the porcentaje to set
+         */
+        public void setPorcentaje(JLabel porcentaje) {
+            this.porcentaje = porcentaje;
+        }
+
+        /**
+         * @return the anubis
+         */
+        public JFrame getAnubis() {
+            return anubis;
+        }
+
+        /**
+         * @param anubis the anubis to set
+         */
+        public void setAnubis(JFrame anubis) {
+            this.anubis = anubis;
+        }
+        
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel Anubis_logo;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelFondo;
+    private javax.swing.JProgressBar jProgressBar1;
+    private javax.swing.JLabel porcentaje;
     // End of variables declaration//GEN-END:variables
+
+ 
 }
