@@ -5,7 +5,6 @@
  */
 package conexion;
 
-import Pantalla.de.login.anubis.login_anubis;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -60,6 +59,8 @@ public class iniciar_sesion {
         if(rs.next()){
             cerraventana.dispose();
             pantallas.de.menu.anubis.inicio inicio = new inicio();
+            inicio.setNombre_usuario(usuario);
+            inicio.cargar_info(rs.getString("nombre")+"-"+rs.getString("perfil"));
             inicio.setVisible(true);   
         }
     }
