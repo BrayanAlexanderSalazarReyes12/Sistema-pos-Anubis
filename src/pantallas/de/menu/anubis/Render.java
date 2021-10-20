@@ -8,6 +8,7 @@ package pantallas.de.menu.anubis;
 import java.awt.Component;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -28,6 +29,10 @@ public class Render extends DefaultTableCellRenderer{
         if(value instanceof JLabel){
             JLabel jl = (JLabel) value;
             return jl;
+        }
+        if(value instanceof JSpinner){
+            JSpinner sj1 = (JSpinner) value;
+            return sj1;
         }
         
         return super.getTableCellRendererComponent(table, value, isSelected, 

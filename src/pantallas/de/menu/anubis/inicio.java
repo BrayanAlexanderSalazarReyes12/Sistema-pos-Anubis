@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.plaf.basic.BasicMenuBarUI;
 import pantallas.de.menu.anubis.Inventario.Inventario;
+import pantallas.de.menu.anubis.Ventas.CrearVenta.Ventas;
 import pantallas.de.menu.anubis.categorias.Categoria;
 import pantallas.de.menu.anubis.clientes.Clientes;
 
@@ -26,13 +27,16 @@ public class inicio extends javax.swing.JFrame {
     Categoria ctg;
     Inventario ivt;
     Clientes cli;
+    Ventas ven;
     int ventana_empleados = 0;
     int ventana_categoria = 0;
     int ventana_inventario = 0;
     int ventana_clientes = 0;
+    int ventana_ventas = 0;
     Toolkit tk = Toolkit.getDefaultToolkit();
     Dimension d = tk.getScreenSize();
     private String nombre_usuario;
+    private String contraseña;
     Registrar_empleados re = new Registrar_empleados();
     /**
      * Creates new form inicio
@@ -43,6 +47,7 @@ public class inicio extends javax.swing.JFrame {
             this.ctg = new Categoria();
             this.ivt = new Inventario();
             this.cli = new Clientes();
+            this.ven = new Ventas();
         } catch (SQLException ex) {
             Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -145,6 +150,11 @@ public class inicio extends javax.swing.JFrame {
 
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla/iconos/inicio/anubis/bolsa-de-la-compra.png"))); // NOI18N
         jMenuItem2.setText("CREAR VENTAS");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu6.add(jMenuItem2);
 
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Pantalla/iconos/inicio/anubis/ganancia.png"))); // NOI18N
@@ -183,6 +193,9 @@ public class inicio extends javax.swing.JFrame {
             }else if(ventana_clientes == 1){
                 cli.dispose();
                 ventana_clientes = 0;
+            }else if(ventana_ventas == 1){
+                ven.dispose();
+                ventana_ventas = 0;
             }
             jDesktopPane1.add(em);
             em.show();
@@ -210,6 +223,9 @@ public class inicio extends javax.swing.JFrame {
         }else if(ventana_clientes == 1){
             cli.dispose();
             ventana_clientes = 0;
+        }else if(ventana_ventas == 1){
+            ven.dispose();
+            ventana_ventas = 0;
         }
     }//GEN-LAST:event_logoMouseClicked
 
@@ -225,6 +241,9 @@ public class inicio extends javax.swing.JFrame {
             }else if(ventana_clientes == 1){
                 cli.dispose();
                 ventana_clientes = 0;
+            }else if(ventana_ventas == 1){
+                ven.dispose();
+                ventana_ventas = 0;
             }
             jDesktopPane1.add(ctg);
             ctg.show();
@@ -247,6 +266,9 @@ public class inicio extends javax.swing.JFrame {
             }else if(ventana_clientes == 1){
                 cli.dispose();
                 ventana_clientes = 0;
+            }else if(ventana_ventas == 1){
+                ven.dispose();
+                ventana_ventas = 0;
             }
             jDesktopPane1.add(ivt);
             ivt.show();
@@ -269,6 +291,9 @@ public class inicio extends javax.swing.JFrame {
             }else if(ventana_inventario == 1){
                 ivt.dispose();
                 ventana_inventario = 0;
+            }else if(ventana_ventas == 1){
+                ven.dispose();
+                ventana_ventas = 0;
             }
             jDesktopPane1.add(cli);
             cli.show();
@@ -279,6 +304,33 @@ public class inicio extends javax.swing.JFrame {
             ventana_clientes = 1;
         }
     }//GEN-LAST:event_jMenu5MouseClicked
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        if(ventana_ventas == 0){
+            if(ventana_categoria == 1){
+                ctg.dispose();
+                ventana_categoria = 0;
+            }else if(ventana_empleados == 1){
+                em.dispose();
+                ventana_empleados = 0;
+            }else if(ventana_inventario == 1){
+                ivt.dispose();
+                ventana_inventario = 0;
+            }else if(ventana_clientes == 1){
+                cli.dispose();
+                ventana_clientes = 0;
+            }
+            jDesktopPane1.add(ven);
+            ven.show();
+            int ancho = (int) d.getWidth();
+            int alto = (int) d.getHeight();
+            ven.setSize(ancho, alto);
+            ven.CargarDatosUsuario(nombre_usuario, contraseña);
+            ven.CargarDatosDeProductos();
+            ven.cargar_datos_de_compra();
+            ventana_ventas = 1;
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -341,5 +393,19 @@ public class inicio extends javax.swing.JFrame {
      */
     public void setNombre_usuario(String nombre_usuario) {
         this.nombre_usuario = nombre_usuario;
+    }
+
+    /**
+     * @return the contraseña
+     */
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    /**
+     * @param contraseña the contraseña to set
+     */
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
 }

@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JFrame;
+import pantallas.de.menu.anubis.Ventas.CrearVenta.Ventas;
 import pantallas.de.menu.anubis.inicio;
 
 /**
@@ -60,8 +61,10 @@ public class iniciar_sesion {
             cerraventana.dispose();
             pantallas.de.menu.anubis.inicio inicio = new inicio();
             inicio.setNombre_usuario(usuario);
+            inicio.setContraseña(contraseña);
             inicio.cargar_info(rs.getString("nombre")+"-"+rs.getString("perfil"));
-            inicio.setVisible(true);   
+            inicio.setVisible(true);
+            
         }
     }
 }

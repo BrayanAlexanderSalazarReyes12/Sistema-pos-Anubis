@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  * @author braya
  */
 public class Registrar_clientes extends javax.swing.JFrame {
-    int ins_dat_clientes = 0;
+    public int ins_dat_clientes = 0;
     /**
      * Creates new form Registrar_clientes
      */
